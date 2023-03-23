@@ -5,7 +5,7 @@
           
           <div class="card ">
               <div class="card-header">
-              <h4 class="register card-title">EDITAR FARMACO</h4>
+              <h4 class="register card-title">EDITAR {{$farmacos->farmaco}}</h4>
               </div>
               <div class="card-body py-3">
                
@@ -37,15 +37,17 @@
                           <div class="invalid-feedback">
                           </div>
                         </div><!-- -->
+                        
+                      </div>
+                      <div class="col">
+                        
                         <div class="col-md-9">
                           <label for="efecto" class="form-label">Efecto </label>
                           <input type="text" class="form-control is-valid" id="efecto" name="efecto" value="{{$farmacos->efecto}}" required>
                           <div class="valid-feedback">
                           </div>
                         </div><!-- -->
-                      </div>
-                      <div class="col">
-                      <div class="py-2 col-md-9">
+                      <!-- <div class="py-2 col-md-9">
                           <label for="" class="form-label">Bibliografia Actual</label>
                           <select class="form-select" required aria-label="select example" name="bibliografia" id="bibliografia" >
                          
@@ -57,8 +59,8 @@
                           @endforeach
                         
                           </select>
-                        </div> 
-                        <div class="py-2 col-md-9">
+                        </div>  -->
+                        <!-- <div class="py-2 col-md-9">
                           <label for="" class="form-label">Grupo Actual</label>
                           <select class="form-select" required aria-label="select example" name="grupo" id="grupo">
                           @foreach($grupo as $grupos)
@@ -68,12 +70,15 @@
                           @endforeach
                           
                           </select>
-                        </div> 
+                        </div>  -->
                         <div class="py-2 col-md-9">
                           <label for="" class="form-label">Bibliografia</label>
                           <select class="form-select" required aria-label="select example" name="bibliografia" id="bibliografia" >
-                          <option value="">Seleccionar Bibliografia</option>
+                          
                           @foreach($bibliografia as $biblios)
+                          @if($farmacos->id_bibliografia == $biblios->id)
+                            <option value="{{$biblios->id}}">{{$biblios->titulo}}</option>
+                          @endif
                           <option value="{{$biblios->id}}">{{$biblios->titulo}}</option>
                           
                           @endforeach
@@ -83,9 +88,11 @@
                         <div class="py-2 col-md-9">
                           <label for="" class="form-label">Grupo</label>
                           <select class="form-select" required aria-label="select example" name="grupo" id="grupo">
-                          <option value="">Seleccionar Grupo</option>
                           @if(isset($grupo))
                           @foreach($grupo as $grupos)
+                          @if($farmacos->id_grupo == $grupos->id)
+                          <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
+                          @endif
                           <option value="{{$grupos->id}}">{{$grupos->grupo}}</option>
                           @endforeach
                           @endif

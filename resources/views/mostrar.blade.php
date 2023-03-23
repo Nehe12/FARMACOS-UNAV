@@ -3,40 +3,69 @@
 @section('content')
 
 <div class="card">
-  <h5 class="card-header">FARMACO </h5>
+  <h5 class="card-header">FARMACO {{$farmacos2->farmaco}} CON NUMERO DE REGISTRO {{$farmacos2->id}}</h5>
   <div class="card-body">
-    @php
+    <!-- @php
     print_r($farmacos2)
-    @endphp
-    <form action="" method="get">
-        @csrf
-        <div class="py-3 col-md-9">
-        <label for="mecanismo" class="form-label">Imagen Actual </label>
-        <img src="" alt="" name="" class="rounded  d-block img-thumbnail" >
-        </div><!-- -->
+    @endphp -->
+    <form class="">
+        <div class="row">
+            <div class="col">
+              <div class="col-md-7">
+                <label for="imagenF">IMAGEN</label>
+                <img src="{{$farmacos2->url}}" class="img-fluid img-thumbnail" alt="Imagen Farmaco">
+              </div>
+            
+            </div>
+            <div class="col">
+              <div class="col-md-7">
+                <label for="farmacoN" class="form-label">FARMACO</label>
+                <input type="text" class="form-control" id="farmacoN" value="{{$farmacos2->farmaco}}">
+              </div>
+              <div class="col-md-7">
+                <label for="mecanismo" class="form-label">MECANISMO</label>
+                <input type="text" class="form-control" id="mecanismo" value="{{$farmacos2->mecanismo}}">
+              </div>
+              <div class="col-7">
+                <label for="titulo" class="form-label">BIBLIOGRAFIA</label>
+                @foreach($bibliografia as $biblios)
+                @if($farmacos2->id_bibliografia == $biblios->id)
+                <input type="text" class="form-control" id="titulo" value="{{$biblios->titulo}}">
+                @endif
+                @endforeach
+              </div>
+              
+            </div>
+            <div class="col">
+            <div class="col-7">
+                <label for="grupo" class="form-label">GRUPO</label>
+                @foreach($grupo as $grup)
+                @if($farmacos2->id_grupo == $grup->id)
+                <input type="text" class="form-control" id="grupo" value="{{$grup->grupo}}">
+                @endif
+                @endforeach
+              </div>
+              <div class="col-md-7">
+                  <label for="tipo" class="form-label">TIPO DE INTERACIÓN</label>
+                  @foreach($interacciones as $inter)
+                  @if($farmacos2->id == $inter->id_farmaco)
+                  <input type="text" class="form-control" id="tipo" value="{{$inter->id}}.- {{$inter->tipo}}" placeholder="Tipo Interaccion">
+                  @endif
+                  @endforeach
+              </div>
+              <div class="col-md-7">
+                  <label for="interaccion" class="form-label">INTERACCION</label>
+                  @foreach($interacciones as $inter)
+                  @if($farmacos2->id == $inter->id_farmaco)
+                  <input type="text" class="form-control" id="interaccion" value="{{$inter->id}}.- {{$inter->interaccion}}" placeholder="Interaccion">
+                  @endif
+                  @endforeach
+              </div>
+                 
+            </div>
+        </div> 
     </form>
-        
-    
-    <!-- <form action="{{route('store.grupo')}}" method="post">
-                      @csrf
-                      <div class="mb-3 col-md-9">
-                        <label for="grupo" class="form-label">Grupo</label>
-                        <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Grupo" required>
-                      </div>
-
-                      <div class="mb-3 col-md-9">
-                        <label for="subgrupo" class="form-label">Subgrupo</label>
-                        <input type="text" class="form-control" id="subgrupo" name="subgrupo" placeholder="Subgrupo" required>
-                      </div>
-
-                      <div class="mb-3 col-md-9">
-                        <label for="estatus" class="form-label">Estatus</label>
-                        <input type="number" class="form-control" id="estatus" name="estatus" placeholder="Estatus" required>
-                      </div>
-                      
-                      <input type="submit" class="btn btn-primary " value="Guardar">
-    </form> -->
-    <a href="{{route('inicio')}}" class="btn btn-info">REGRESAR</a>
+    <a href="{{route('inicio')}}" class="btn btn-info boton-select  ">REGRESAR</a>
   </div>
 </div>
       

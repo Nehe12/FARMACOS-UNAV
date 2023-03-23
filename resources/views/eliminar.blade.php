@@ -5,17 +5,17 @@
      <div class="row">
          <div class="col pt-4">
             <div class="card ">
-                <h4 class="card-header">ELIMINAR FARMACO</h4>
+                <h4 class="card-header">ELIMINAR FARMACO {{$farmacos->farmacos}}</h4>
                 <div class="card-body">
                     <div class="alert alert-danger container" role="alert">
                         <h3>Estas seguro de eliminar este registro!!!</h3>
                         <h5>Se eliminara las interacciones relacionadas con este farmaco</h5>
-                    <table  class="table table-sm table-hover " >
+                    <table  class="table table-sm table-hover responsive " >
                         <thead>
                             <tr>
                                 <th>FARMACO</th>
                                 <th>MECANISMO</th>
-                                <th>URL</th>
+                                <th class="container-fluid">URL</th>
                                 <th>EFECTO</th>
                                 <th>ID_BIBLIOGRAFIA</th>
                                 <th>ID_GRUPO</th>
@@ -26,7 +26,7 @@
                             <tr class="table-ligth ">
                                 <td>{{$farmacos->farmaco}}</td>
                                 <td>{{$farmacos->mecanismo}}</td>
-                                <td class="col-4">{{$farmacos->url}}</td>
+                                <td class="container-fluid">{{$farmacos->url}}</td>
                                 <td>{{$farmacos->id_bibliografia}}</td>
                                 <td>{{$farmacos->id_grupo}}</td>
                                 <td>{{$farmacos->status}}</td>
