@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Farmaco;
 use App\Models\Interacciones;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
 
 class InteraccionesController extends Controller
 {
@@ -13,7 +14,6 @@ class InteraccionesController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -21,8 +21,9 @@ class InteraccionesController extends Controller
      */
     public function create()
     {
-        $farmacos=Farmaco::all();
-        return view('interacciones',compact('farmacos'));
+        $farmacos = Farmaco::all();
+
+        return view('interacciones', compact('farmacos'));
     }
 
     /**
@@ -31,14 +32,36 @@ class InteraccionesController extends Controller
     public function store(Request $request)
     {
         $interaccion = new Interacciones();
-        $interaccion->tipo=$request->tipo_interaccion;
-        $interaccion->interaccion=$request->interaccion;
-        $interaccion->id_farmaco=$request->farmaco;
-        $interaccion->status=$request->estatus;
-        $interaccion->save();
-        return redirect('/');
 
+        $interaccion->interaccion = $request->interaccion;
+        $interaccion->id_farmaco = $request->id_interaccion;
+        if (isset($request->estatus)) {
+            $interaccion->status = $request->input('estatus');
+        } else {
+            $interaccion->status = 0;
+        }
+        $interaccion->save();
+        return redirect()->route('crear.farmaco')->with('msg', 'Interaccion agregada para ');
     }
+
+    public function store2(Request $request)
+    {
+        $interaccion2 = new Interacciones();
+        $interaccion2->interaccion = $request->interaccionA;
+        $interaccion2->id_farmaco = $request->input('id_farmaco');
+        $id = $request->input('id_farmaco');
+        if (isset($request->estatus)) {
+            $interaccion2->status = $request->input('estatus');
+        } else {
+            $interaccion2->status = 0;
+        }
+
+        $interaccion2->save();
+        // $id=$interaccion2->id_farmaco=$request->input('id_farmaco');
+
+        return redirect()->route('edit.farmaco', compact('id'))->with('msg', 'Interaccion agregada para ');
+    }
+
 
     /**
      * Display the specified resource.
@@ -53,22 +76,38 @@ class InteraccionesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit.interacciones');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+
+
+        $UP_Interaccion = Interacciones::find($request->id_interaccion);
+        $UP_Interaccion->interaccion = $request->interaccion;
+        if (isset($request->estatus)) {
+            $UP_Interaccion->status = $request->input('estatus');
+        } else {
+            $UP_Interaccion->status = 0;
+        }
+        $UP_Interaccion->save();
+        $id = $request->input('id_farmaco');
+
+        return redirect()->route('edit.farmaco', compact('id'))->with('msgi', 'Interaccion Actualizada');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, $id_i)
     {
-        //
+
+        $interaccion = Interacciones::find($id_i);
+        $interaccion->delete();
+        $id = $request->input('farm_id');
+        return redirect()->route('edit.farmaco', compact('id'));
     }
 }

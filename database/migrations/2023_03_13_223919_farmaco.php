@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('id_bibliografia')->references('id')->on('bibliografias');
             $table->unsignedBigInteger('id_grupo');
             $table->foreign('id_grupo')->references('id')->on('grupo_farmacos');
-            $table->integer('status')->default(1);
+            $table->integer('status');
             $table->timestamps();
         });
     }

@@ -35,7 +35,11 @@ class BibliografiaController extends Controller
         $bibliografia->autor=$request->autor;
         $bibliografia->anio=$request->año;
         $bibliografia->editorial=$request->editorial;
-        $bibliografia->estatus=$request->estatus;
+        if (isset($request->estatus)) {
+            $bibliografia->estatus=$request->input('estatus');
+           }else {
+               $bibliografia->estatus=0;
+           }
         $bibliografia->save();
         return redirect('/farmaco');
     }

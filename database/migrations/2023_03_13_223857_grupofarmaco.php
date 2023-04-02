@@ -15,7 +15,7 @@ return new class extends Migration
             $table ->id();
             $table ->string('grupo');
             $table ->text('subgrupo');
-            $table ->string('estatus');
+            $table ->integer('estatus');
             $table ->timestamps();
         });
     }

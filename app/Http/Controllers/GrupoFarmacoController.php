@@ -31,7 +31,11 @@ class GrupoFarmacoController extends Controller
         $grupo = new GrupoFarmaco();
         $grupo->grupo=$request->grupo;
         $grupo->subgrupo=$request->subgrupo;
-        $grupo->estatus=$request->estatus;
+        if (isset($request->estatus)) {
+            $grupo->estatus=$request->input('estatus');
+           }else {
+               $grupo->estatus=0;
+           }
         $grupo->save();
         return redirect('/farmaco');
     }

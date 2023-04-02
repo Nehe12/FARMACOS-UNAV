@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('interacciones', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
             $table->text('interaccion');
             $table->unsignedBigInteger('id_farmaco');
             $table->foreign('id_farmaco')->references('id')->on('farmacos')->onDelete('cascade');
-            $table->integer('status')->default(0);
+            $table->integer('status');
             $table->timestamps();
         });
     }
