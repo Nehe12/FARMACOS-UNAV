@@ -59,7 +59,7 @@ class InteraccionesController extends Controller
         $interaccion2->save();
         // $id=$interaccion2->id_farmaco=$request->input('id_farmaco');
 
-        return redirect()->route('edit.farmaco', compact('id'))->with('msg', 'Interaccion agregada para ');
+        return redirect()->route('edit.farmaco', compact('id'))->with('msg', 'Interaccion agregada');
     }
 
 
@@ -102,12 +102,12 @@ class InteraccionesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id_i)
+    public function destroy(Request $request, $id)
     {
 
-        $interaccion = Interacciones::find($id_i);
+        $interaccion = Interacciones::find($id);
         $interaccion->delete();
         $id = $request->input('farm_id');
-        return redirect()->route('edit.farmaco', compact('id'));
+        return redirect()->route('edit.farmaco', compact('id'))->with('eliminar','Eliminado Correctamente');
     }
 }

@@ -3,12 +3,21 @@
 
 
 
+
+
+
 <div class="card ">
   <div class="card-header">
     <h4 class="register card-title">EDITAR {{$farmacos->farmaco}}</h4>
   </div>
   <div class="card-body py-3">
-
+    <div class="col-sm-12">
+      @if($mensaje = Session::get('msg'))
+      <div class="alert alert-success" role="alert">
+        {{$mensaje}}
+      </div>
+      @endif
+    </div>
     <form class="" action="{{route('update.farmaco',$farmacos->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method("PUT")
@@ -83,79 +92,83 @@
             <div class="valid-feedback">
             </div>
           </div><!-- -->
-          
-          <div class="mb-3 enviar-form">
-            <a href="{{route('inicio')}}" class="btn btn-info">REGRESAR</a>
-            <button class="btn btn-warning" type="submit">ACTUALIZAR FARMACO</button>
-            <a class=" btn btn-success " href="" data-bs-toggle="modal" data-bs-target="#AgregarInter">AGREGAR INTERACCIÓN</a>
-          </div><!-- -->
 
-        </div>
+          <div class="mb-3 enviar-form">
+
+            <button class="btn btn-warning" type="submit">ACTUALIZAR FARMACO</button>
+            <a href="{{route('inicio')}}" class="btn btn-info">REGRESAR</a>
+            <a class=" btn btn-success " href="" data-bs-toggle="modal" data-bs-target="#AgregarInter">AGREGAR INTERACCIÓN</a>
+
+          </div><!-- -->
     </form>
 
   </div>
-  <div class="row">
-    <div>
-      <!-- class="col-sm-6 mb-3 mb-sm-0" -->
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">INTERACCIONES</h5>
-        </div>
-        <div class="card-body">
+
+
+</div>
+<div class="row">
+  <div>
+    <!-- class="col-sm-6 mb-3 mb-sm-0" -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">INTERACCIONES</h5>
+      </div>
+      <div class="card-body">
 
 
 
-          <table id="tabla_interacciones" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>INTERACCIÓN</th>
-                <th>FARMACO</th>
-                <th>EDITAR</th>
-                <th>ELIMINAR</th>
-              </tr>
-            </thead>
-            <tbody>
-              @if(isset($interacciones))
-              @foreach($interacciones as $inteFm)
-              @if($inteFm->id_farmaco==$farmacos->id)
-              <tr>
-                <td>{{$inteFm->id}}</td>
-                <td>{{$inteFm->interaccion}}</td>
-                <td>{{$farmacos->farmaco}}</td>
-                <td>
-                  <button type="button" class="btn btn-info" id="bt-modal" data-bs-toggle="modal" data-bs-target="#editarInter" data-id_inter="{{$inteFm->id}}" data-inter="{{$inteFm->interaccion}}" data-id_far="{{$inteFm->id_farmaco}}"><i class="bi bi-arrow-counterclockwise"></i></button>
-                </td>
-                <td>
+        <table id="tabla_interacciones" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>INTERACCIÓN</th>
+              <th>FARMACO</th>
+              <th>EDITAR</th>
+              <th>ELIMINAR</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(isset($interacciones))
+            @foreach($interacciones as $inteFm)
+            @if($inteFm->id_farmaco==$farmacos->id)
+            <tr>
+              <td>{{$inteFm->id}}</td>
+              <td>{{$inteFm->interaccion}}</td>
+              <td>{{$farmacos->farmaco}}</td>
+              <td>
+                <button type="button" class="btn btn-info" id="bt-modal" data-bs-toggle="modal" data-bs-target="#editarInter" data-id_inter="{{$inteFm->id}}" data-inter="{{$inteFm->interaccion}}" data-id_far="{{$inteFm->id_farmaco}}"><i class="bi bi-arrow-counterclockwise"></i></button>
+              </td>
+              <td>
 
-                  <form action="{{route('destroy.interaccion',$inteFm->id)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <input type="text" value="{{$farmacos->id}}" name="farm_id" hidden>
-                    <button class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
-                  </form>
+                <form id="delete_interaccion" action="{{route('destroy.interaccion',$inteFm->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <input type="text" value="{{$farmacos->id}}" name="farm_id" hidden>
+                  <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
 
-                </td>
-              </tr>
-              @endif
-              @endforeach
-              @endif
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>ID</th>
-                <th>INTERACCIÓN</th>
-                <th>FARMACO</th>
-                <th>EDITAR</th>
-                <th>ELIMINAR</th>
-              </tr>
-            </tfoot>
-          </table>
+                </form>
 
-        </div>
+              </td>
+            </tr>
+            @endif
+            @endforeach
+            @endif
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>INTERACCIÓN</th>
+              <th>FARMACO</th>
+              <th>EDITAR</th>
+              <th>ELIMINAR</th>
+            </tr>
+          </tfoot>
+        </table>
+
       </div>
     </div>
   </div>
+</div>
 
 </div>
 
@@ -184,7 +197,7 @@
           <div class="mb-3 col-md-9 pt-3">
             <label for="interaccion" class="form-label">Interacción</label>
 
-            <input type="text" class="form-control is-valid" name="interaccionA" id="estatus" required value="" required>
+            <input type="text" class="form-control " name="interaccionA" id="estatus" required placeholder="Interacción">
             <div class="valid-feedback">
             </div>
 
@@ -197,9 +210,8 @@
             </div>
 
           </div>
-          <div class="modal-footer">
-            <input type="submit" class="btn btn-primary " value="Guardar">
-          </div>
+          <input type="submit" class="btn btn-primary " value="Guardar">
+
         </form>
       </div>
 

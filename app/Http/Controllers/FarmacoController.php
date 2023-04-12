@@ -21,8 +21,15 @@ class FarmacoController extends Controller
      */
     public function index()
     {
-        $sql = "SELECT `farmacos`.`id`,`farmacos`.`farmaco`,`farmacos`.`mecanismo`,`farmacos`.`efecto`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo` FROM `farmacos` LEFT JOIN `bibliografias` ON `farmacos`.`id_bibliografia` = `bibliografias`.`id` LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`";
+        /*SELECT `farmacos`.`id`,`farmacos`.`farmaco`,`farmacos`.`mecanismo`,`farmacos`.`url`,`farmacos`.`efecto`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo`, `interacciones`.`interaccion`
+        FROM `farmacos` 
+            LEFT JOIN `bibliografias` ON `farmacos`.`id_bibliografia` = `bibliografias`.`id` 
+            LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id` 
+            LEFT JOIN `interacciones` ON `interacciones`.`id_farmaco` = `farmacos`.`id`"*/
+        $sql = "SELECT `farmacos`.`id`,`farmacos`.`farmaco`,`farmacos`.`mecanismo`,`farmacos`.`url`,`farmacos`.`efecto`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo` FROM `farmacos` LEFT JOIN `bibliografias` ON `farmacos`.`id_bibliografia` = `bibliografias`.`id` LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`";
         $farmacos = DB::select($sql);
+        $interacciones= Interacciones::all();
+        $interacciones->toJson();
 
 
         /*$farmacos=DB::table('farmacos')
@@ -33,7 +40,7 @@ class FarmacoController extends Controller
             var_dump($farmacos);return;*/
 
 
-        return view("index", compact('farmacos'));
+        return view("index", compact('farmacos','interacciones'));
     }
 
     /**
