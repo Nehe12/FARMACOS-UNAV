@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('farmaco');
             $table->text('mecanismo');
-            $table->text('public_id');
             $table->text('url');
             $table->text('efecto');
-            $table->unsignedBigInteger('id_bibliografia');
-            $table->foreign('id_bibliografia')->references('id')->on('bibliografias');
-            $table->unsignedBigInteger('id_grupo');
-            $table->foreign('id_grupo')->references('id')->on('grupo_farmacos');
-            $table->integer('status');
+            $table->text('recomendaciones');
+            $table->unsignedBigInteger('id_grupo')->nullable();
+            $table->foreign('id_grupo')->references('id')->on('grupo_farmacos')->onUpdate('cascade')->onDelete('set null');
+            $table->integer('estatus')->default(1);
             $table->timestamps();
         });
     }

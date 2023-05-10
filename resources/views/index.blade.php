@@ -1,7 +1,7 @@
 @extends('header')
 @section('content')
 
-<a class="btn btn-primary " href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
+<a class="btn btn-primary btnc" href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
 
 <div class="row">
     <div class="col pt-2">
@@ -21,15 +21,18 @@
 
                     </div>
                 </div>
+
                 <table id="farmaco" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>
-                            <th>BIBLIOGRAFIA</th>
+                            <!-- <th>BIBLIOGRAFIA</th> -->
                             <th>GRUPO</th>
-                            <th>VER</th>
+                            <th>RECOMENDACIÓN</th>
+                            <th>ACCIÓN</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
                         </tr>
@@ -38,21 +41,27 @@
                         @if(isset($farmacos))
                         @foreach($farmacos as $far)
                         <tr>
+                            <td>{{$far->id}}</td>
                             <td>{{$far->farmaco}}</td>
                             <td>{{$far->mecanismo}}</td>
                             <td>{{$far->efecto}}</td>
-                            <td>{{$far->titulo}}</td>
                             <td>{{$far->grupo}}</td>
+                            <td>{{$far->recomendaciones}}</td>
                             <td>
-                                <div class="text-start">
-                                    <!-- <a href="{{route('ver.farmaco',$far->id)}}" class="btn btn-success btnShow btn-sm">
-                                        <i class="bi bi-eye-fill"></i>
-                                    </a>  -->
-                                    
-                                    <button type="button" class="btn btn-success btnShow btn-sm" id="mostrar" data-bs-toggle="modal" data-bs-target="#mostrarInter" data-farmaco="{{$far->farmaco}}" data-mecanismo="{{$far->mecanismo}}" data-imagen="{{$far->url}}" data-efecto="{{$far->efecto}}" data-titulo="{{$far->titulo}}" data-grupo="{{$far->grupo}}" data-interaccion=""><i class="bi bi-eye-fill"></i></button>
-                                    
+                                <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
+                                    @csrf
 
-                                </div>
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="estatus" value="{{ $far->estatus }}   ">
+                                    <div class="form-check form-switch">
+                                        <label class="switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" onchange="this.form.submit()" {{ $far->estatus ? 'checked' : '' }}>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </form>
+
+
                             </td>
                             <td>
                                 <div class="text-start">
@@ -62,15 +71,14 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="text-start">
-                                    <!-- {{route('show.farmaco',$far->id)}} -->
-                                    <a href="{{route('show.farmaco',$far->id)}}" class="btn btn-danger btnDelete btn-sm" data-bs-target="#staticBackdrop">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                    <!-- <button type="button" class="btn btn-danger btnDelete btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-trash3-fill"></i>
-                        </button> -->
-                                </div>
+
+                                <form class="delete_farmaco" action="{{route('destroy.farmaco',$far->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="text" value="{{$far->id}}" name="far_id" hidden>
+                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -78,21 +86,26 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>ID</th>
                             <th>FARMACO</th>
                             <th>MECANISMO</th>
                             <th>EFECTO</th>
-                            <th>BIBLIOGRAFIA</th>
+                            <!-- <th>BIBLIOGRAFIA</th> -->
                             <th>GRUPO</th>
-                            <th>VER</th>
+                            <th>RECOMENDACIÓN</th>
+                            <th>ACCIÓN</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
                         </tr>
                     </tfoot>
                 </table>
+
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!-- Modal -->
 <div class="modal fade " id="mostrarInter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -149,7 +162,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                
+
             </div>
         </div>
     </div>

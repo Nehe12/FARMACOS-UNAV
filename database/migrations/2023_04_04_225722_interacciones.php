@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+  /**
      * Run the migrations.
      */
     public function up(): void
@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('interaccion');
             $table->unsignedBigInteger('id_farmaco');
-            $table->foreign('id_farmaco')->references('id')->on('farmacos')->onDelete('cascade');
-            $table->integer('status');
+            $table->foreign('id_farmaco')->references('id')->on('farmacos')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
