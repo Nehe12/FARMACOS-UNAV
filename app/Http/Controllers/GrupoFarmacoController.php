@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\GrupoFarmaco;
+use Database\Factories\GrupoFarmacoFactory;
 use Illuminate\Http\Request;
+
 
 class GrupoFarmacoController extends Controller
 {
@@ -12,7 +13,8 @@ class GrupoFarmacoController extends Controller
      */
     public function index()
     {
-        
+        $grupos = GrupoFarmaco::all();
+        return view('editGrupo',compact('grupos'));
     }
 
     /**
@@ -20,7 +22,7 @@ class GrupoFarmacoController extends Controller
      */
     public function create()
     {
-        return view('grupo');
+        //
     }
 
     /**
@@ -28,7 +30,9 @@ class GrupoFarmacoController extends Controller
      */
     public function store(Request $request)
     {
-        $grupo = new GrupoFarmaco();
+        
+        
+        $grupo =new GrupoFarmaco();
         $grupo->grupo=$request->grupo;
         $grupo->subgrupo=$request->subgrupo;
         if (isset($request->estatus)) {
@@ -59,9 +63,18 @@ class GrupoFarmacoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $grupo =GrupoFarmaco::find($request->grupo_id);
+        $grupo->grupo=$request->grupoU;
+        $grupo->subgrupo=$request->subgrupoU;
+        if (isset($request->estatus)) {
+            $grupo->estatus=$request->input('estatus');
+           }else {
+               $grupo->estatus=0;
+           }
+        $grupo->save();
+        return redirect()->route('show.grupos');
     }
 
     /**
@@ -69,6 +82,8 @@ class GrupoFarmacoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $grupo = GrupoFarmaco::find($id);
+        $grupo->delete();
+        return redirect()->route('show.grupos');
     }
 }

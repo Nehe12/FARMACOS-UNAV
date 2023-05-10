@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('bibliografias', function (Blueprint $table) {
@@ -18,7 +15,7 @@ return new class extends Migration
             $table->string('autor');
             $table->string('anio');
             $table->string('editorial');
-            $table->integer('estatus');
+            $table->integer('estatus')->default(1);
             $table->timestamps();
            
         });

@@ -8,6 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Interacciones extends Model
 {
     use HasFactory;
-
-    // protected $fillable = ['ID','interaccion','status'];
 }

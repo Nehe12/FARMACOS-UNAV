@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Farmaco;
+use App\Models\Farmacos;
 use App\Models\Interacciones;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\DB;
 
 class InteraccionesController extends Controller
 {
@@ -14,6 +14,7 @@ class InteraccionesController extends Controller
      */
     public function index()
     {
+        
     }
 
     /**
@@ -21,7 +22,7 @@ class InteraccionesController extends Controller
      */
     public function create()
     {
-        $farmacos = Farmaco::all();
+        $farmacos = Farmacos::all();
 
         return view('interacciones', compact('farmacos'));
     }
@@ -31,6 +32,7 @@ class InteraccionesController extends Controller
      */
     public function store(Request $request)
     {
+
         $interaccion = new Interacciones();
 
         $interaccion->interaccion = $request->interaccion;
@@ -62,7 +64,6 @@ class InteraccionesController extends Controller
         return redirect()->route('edit.farmaco', compact('id'))->with('msg', 'Interaccion agregada');
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -76,7 +77,7 @@ class InteraccionesController extends Controller
      */
     public function edit(string $id)
     {
-        return view('edit.interacciones');
+        //
     }
 
     /**
@@ -84,8 +85,6 @@ class InteraccionesController extends Controller
      */
     public function update(Request $request)
     {
-
-
         $UP_Interaccion = Interacciones::find($request->id_interaccion);
         $UP_Interaccion->interaccion = $request->interaccion;
         if (isset($request->estatus)) {
@@ -95,16 +94,14 @@ class InteraccionesController extends Controller
         }
         $UP_Interaccion->save();
         $id = $request->input('id_farmaco');
-
         return redirect()->route('edit.farmaco', compact('id'))->with('msgi', 'Interaccion Actualizada');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request,$id)
     {
-
         $interaccion = Interacciones::find($id);
         $interaccion->delete();
         $id = $request->input('farm_id');
