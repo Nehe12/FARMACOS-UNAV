@@ -199,8 +199,14 @@ $(document).ready(function () {
     "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
   });
 });
-
-
+/*Tabla reporte */
+$(document).ready(function () {
+  $('#example').DataTable({
+      scrollY: '200px',
+      scrollCollapse: true,
+      paging: false,
+  });
+});
 /*Vista previa imagen */
 $(document).ready(function (e) {
   $('#image').change(function () {

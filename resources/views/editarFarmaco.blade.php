@@ -4,7 +4,7 @@
 
 
 
-
+<a class="btn btn-primary btnc" href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
 
 <div class="card pt-2">
   <div class="card-header ">

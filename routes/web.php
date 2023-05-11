@@ -23,7 +23,7 @@ Route::controller(FarmacoController::class)->group(function () {
     Route::get('/', "index")->name('inicio');
     
     Route::get('/farmaco',"create")->name('crear.farmaco');
-    // Route::get('/farmaco', "create")->name('crear.farmaco');
+    Route::get('/reportes', "reporte")->name('show.reporte');
     // Route::match(['post','put'],'/farmaco/saveForm', 'store')->name('store.farmaco');
     Route::post('/farmaco/saveForm', 'store')->name('store.farmaco');
 

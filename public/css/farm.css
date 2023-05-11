@@ -100,3 +100,7 @@ form{
 .btnc{
     font-weight: bold;
 }
+.container {
+    width: 100%;
+    max-width: 110rem;
+  }

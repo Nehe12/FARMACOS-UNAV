@@ -247,21 +247,7 @@ class FarmacoController extends Controller
         $farmaco->delete();
         return redirect()->route('inicio')->with('success', 'Eliminado con exito!!');
     }
-    /*Mostrar  */
-    /*public function mostrar($id)
-    {
-
-        $grupo = GrupoFarmaco::all();
-        $interacciones = Interacciones::all();
-        $bibliografia = Bibliografias::all();
-        $sql2 = "SELECT `farmacos`.`id`,`farmacos`.`farmaco`, `farmacos`.`efecto`, `farmacos`.`mecanismo`, `farmacos`.`url`, `bibliografias`.`titulo`, `grupo_farmacos`.`grupo`,  `interacciones`.`interaccion`
-                  FROM `farmacos`
-                  LEFT JOIN `bibliografias` ON `farmacos`.`id_bibliografia` = `bibliografias`.`id`
-                  LEFT JOIN `grupo_farmacos` ON `farmacos`.`id_grupo` = `grupo_farmacos`.`id`
-                  LEFT JOIN `interacciones` ON `interacciones`.`id_farmaco` = `farmacos`.`id`";
-        $farmacos2 = DB::select($sql2);
-        $farmacos2 = Farmacos::find($id);
-        $farmacos2->toArray();
-        return view('mostrar', compact('farmacos2', 'grupo', 'interacciones', 'bibliografia'));
-    }*/
+    public function reporte(){
+        return view("reportes");
+    }
 }

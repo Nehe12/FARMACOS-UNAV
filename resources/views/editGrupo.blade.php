@@ -1,5 +1,6 @@
 @extends('header')
 @section('content')
+<a class="btn btn-primary btnc" href="{{ route('crear.farmaco') }}">CREAR NUEVO GRUPO</a>
 
 <div class="card">
     <div class="card-header">
@@ -28,8 +29,7 @@
                     <td>{{$grupositem->grupo}}</td>
                     <td>{{$grupositem->subgrupo}}</td>
                     <td>
-                        <button type="button" class="btn btn-info" id="bt-modalGrupo" data-bs-toggle="modal" data-bs-target="#editGrupo" 
-                        data-id_grupo="{{$grupositem->id}}" data-grupo="{{$grupositem->grupo}}" data-subgrupo="{{$grupositem->subgrupo}}"><i class="bi bi-arrow-counterclockwise"></i></button>
+                        <button type="button" class="btn btn-info" id="bt-modalGrupo" data-bs-toggle="modal" data-bs-target="#editGrupo" data-id_grupo="{{$grupositem->id}}" data-grupo="{{$grupositem->grupo}}" data-subgrupo="{{$grupositem->subgrupo}}"><i class="bi bi-arrow-counterclockwise"></i></button>
                     </td>
                     <td>
 
@@ -76,13 +76,13 @@
                     <div class="">
                         <label for="grupoU" class="form-label">Grupo</label>
                         <textarea class="form-control" name="grupoU" id="grupoU" cols="4" rows="2"></textarea>
-                        
+
                     </div>
 
                     <div class="pt-3">
                         <label for="subgrupoU" class="form-label">Subgrupo</label>
                         <textarea name="subgrupoU" id="subgrupoU" cols="4" rows="4" class="form-control"></textarea>
-                        
+
                     </div>
 
                     <div class="mb-3 col-md-9 pt-3">
@@ -91,7 +91,7 @@
                             <label class="form-check-label" for="flexCheckDefault">Estatus</label>
                         </div> -->
                     </div>
-                    
+
                     <input type="submit" class="btn btn-primary " value="Guardar">
                 </form>
             </div>

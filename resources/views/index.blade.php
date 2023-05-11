@@ -47,6 +47,14 @@
                             <td>{{$far->efecto}}</td>
                             <td>{{$far->grupo}}</td>
                             <td>{{$far->recomendaciones}}</td>
+                            <td id="{{$far->id}}">
+
+                                @if($far->estatus == 1 )
+                                <button type="button" class="btn btn-sm btn-success">Activo</button>
+                                @else
+                                <button type="button" class="btn btn-sm btn-danger">Inactivo</button>
+                                @endif
+                            </td>
                             <td>
                                 <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
                                     @csrf
