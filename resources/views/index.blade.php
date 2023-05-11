@@ -13,104 +13,109 @@
 
 
                         @if($mensaje = Session::get('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{$mensaje}}
-                        </div>
-                        @endif
-
-
+                        <script>
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        </script>
                     </div>
+                    @endif
+
+
                 </div>
-
-                <table id="farmaco" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>FARMACO</th>
-                            <th>MECANISMO</th>
-                            <th>EFECTO</th>
-                            <!-- <th>BIBLIOGRAFIA</th> -->
-                            <th>GRUPO</th>
-                            <th>RECOMENDACIÓN</th>
-                            <th>ACCIÓN</th>
-                            <th>EDITAR</th>
-                            <th>ELIMINAR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(isset($farmacos))
-                        @foreach($farmacos as $far)
-                        <tr>
-                            <td>{{$far->id}}</td>
-                            <td>{{$far->farmaco}}</td>
-                            <td>{{$far->mecanismo}}</td>
-                            <td>{{$far->efecto}}</td>
-                            <td>{{$far->grupo}}</td>
-                            <td>{{$far->recomendaciones}}</td>
-                            <td id="{{$far->id}}">
-
-                                @if($far->estatus == 1 )
-                                <button type="button" class="btn btn-sm btn-success">Activo</button>
-                                @else
-                                <button type="button" class="btn btn-sm btn-danger">Inactivo</button>
-                                @endif
-                            </td>
-                            <td>
-                                <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
-                                    @csrf
-
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input type="hidden" name="estatus" value="{{ $far->estatus }}   ">
-                                    <div class="form-check form-switch">
-                                        <label class="switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" onchange="this.form.submit()" {{ $far->estatus ? 'checked' : '' }}>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </form>
-
-
-                            </td>
-                            <td>
-                                <div class="text-start">
-                                    <a href="{{route('edit.farmaco',$far->id)}}" class="btn btn-warning btnEditar btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                </div>
-                            </td>
-                            <td>
-
-                                <form class="delete_farmaco" action="{{route('destroy.farmaco',$far->id)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="text" value="{{$far->id}}" name="far_id" hidden>
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
-
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>FARMACO</th>
-                            <th>MECANISMO</th>
-                            <th>EFECTO</th>
-                            <!-- <th>BIBLIOGRAFIA</th> -->
-                            <th>GRUPO</th>
-                            <th>RECOMENDACIÓN</th>
-                            <th>ACCIÓN</th>
-                            <th>EDITAR</th>
-                            <th>ELIMINAR</th>
-                        </tr>
-                    </tfoot>
-                </table>
-
             </div>
+
+            <table id="farmaco" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FARMACO</th>
+                        <th>MECANISMO</th>
+                        <th>EFECTO</th>
+                        <!-- <th>BIBLIOGRAFIA</th> -->
+                        <th>GRUPO</th>
+                        <th>RECOMENDACIÓN</th>
+                        <th>ACCIÓN</th>
+                        <th>EDITAR</th>
+                        <th>ELIMINAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(isset($farmacos))
+                    @foreach($farmacos as $far)
+                    <tr>
+                        <td>{{$far->id}}</td>
+                        <td>{{$far->farmaco}}</td>
+                        <td>{{$far->mecanismo}}</td>
+                        <td>{{$far->efecto}}</td>
+                        <td>{{$far->grupo}}</td>
+                        <td>{{$far->recomendaciones}}</td>
+                        <td id="{{$far->id}}">
+
+                            @if($far->estatus == 1 )
+                            <button type="button" class="btn btn-sm btn-success">Activo</button>
+                            @else
+                            <button type="button" class="btn btn-sm btn-danger">Inactivo</button>
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('activar.farmaco', $far->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="estatus" value="{{ $far->estatus }}   ">
+                                <div class="form-check form-switch">
+                                    <label class="switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" onchange="this.form.submit()" {{ $far->estatus ? 'checked' : '' }}>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </form>
+
+
+                        </td>
+                        <td>
+                            <div class="text-start">
+                                <a href="{{route('edit.farmaco',$far->id)}}" class="btn btn-warning btnEditar btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+
+                            <form class="delete_farmaco" action="{{route('destroy.farmaco',$far->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="text" value="{{$far->id}}" name="far_id" hidden>
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>FARMACO</th>
+                        <th>MECANISMO</th>
+                        <th>EFECTO</th>
+                        <!-- <th>BIBLIOGRAFIA</th> -->
+                        <th>GRUPO</th>
+                        <th>RECOMENDACIÓN</th>
+                        <th>ACCIÓN</th>
+                        <th>EDITAR</th>
+                        <th>ELIMINAR</th>
+                    </tr>
+                </tfoot>
+            </table>
+
         </div>
     </div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

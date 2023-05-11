@@ -249,33 +249,45 @@ class FarmacoController extends Controller
     }
     public function reporte()
     {
-        /*Cantidad de bibliografias por farmaco tabla */
-        $sqlB = "SELECT farmacos.id AS far, farmacos.farmaco, GROUP_CONCAT(bibliografias.titulo SEPARATOR ' -||\n ') AS titulos
+        /*<-<-<-<-<--<- Cantidad de bibliografias por farmaco tabla >->->->->->->->-->>->- */
+        $sql1 = "SELECT farmacos.id AS far, farmacos.farmaco, GROUP_CONCAT(bibliografias.titulo SEPARATOR ' -||\n ') AS titulos
         FROM farmacos
         LEFT JOIN farmacobibliografia ON farmacobibliografia.farmacos_id = farmacos.id
         LEFT JOIN bibliografias ON farmacobibliografia.bibliografias_id= bibliografias.id
         GROUP BY far, farmacos.farmaco";
-        $farma_biblio = DB::select($sqlB);
+        $farma_biblio = DB::select($sql1);
         // dd($farma_biblio);
-        /*Cantidad de Interacciones del farmaco */
-        $sql = "SELECT farmacos.id AS far, farmacos.farmaco,farmacos.efecto,farmacos.mecanismo,grupo_farmacos.grupo, GROUP_CONCAT(interacciones.interaccion SEPARATOR ' -|| \n ') AS interaccion
+        /*<-<-<--<-<-<-<--<-<-<-<--<Cantidad de Interacciones del farmaco tabla >->->-->->->->-->->->->-->->*/
+        $sql2 = "SELECT farmacos.id AS far, farmacos.farmaco,farmacos.efecto,farmacos.mecanismo,grupo_farmacos.grupo, GROUP_CONCAT(interacciones.interaccion SEPARATOR ' -|| \n ') AS interaccion
         FROM farmacos
         LEFT JOIN interacciones ON farmacos.id = interacciones.id_farmaco
         LEFT JOIN grupo_farmacos ON farmacos.id_grupo = grupo_farmacos.id
         GROUP BY far, farmacos.farmaco,grupo_farmacos.grupo,farmacos.efecto,farmacos.mecanismo";
-        $farma_grupo=DB::select($sql);
+        $farma_grupo=DB::select($sql2);
         
-        /*Cantidad de farmacos por grupo */
-
-        /* #biliografias por farmaco Grafica*/
-        $sql3="SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(bibliografias.id) AS CAN 
+        /*<-<--<-<-<-<--<-<--Cantidad de farmacos por grupo >-->->-->->->-->->-->->->-->->->-->->->*/
+        $sql3 = "SELECT grupo_farmacos.id, grupo_farmacos.grupo as grupo, COUNT(farmacos.id) as cant_farm
+        FROM grupo_farmacos
+        LEFT JOIN farmacos ON farmacos.id_grupo = grupo_farmacos.id
+        GROUP BY grupo_farmacos.id,grupo";
+        $grupos=DB::select($sql3);
+        // dd($grupos);
+        /*<-<-<--<-<--<-<-<--< #biliografias por farmaco Grafica >->->->->-->->->->*/
+        $sql4="SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(bibliografias.id) AS CAN 
         FROM `farmacos`
         LEFT JOIN `farmacobibliografia` ON `farmacos`.`id` = `farmacobibliografia`.`farmacos_id` 
         LEFT JOIN `bibliografias` ON `farmacobibliografia`.`bibliografias_id` = `bibliografias`.`id`
         GROUP BY farmacos.id,far";
-        $biblios=DB::select($sql3);
+        $biblios=DB::select($sql4);
+       
+        /*<-<-<-<-<--<-<-< Cantidad de interacciones por farmaco >-->->->->-->->-->-*/
+        $sql5 = "SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(interacciones.id) AS int_can
+        from `farmacos`
+        LEFT JOIN interacciones ON interacciones.id_farmaco = farmacos.id
+        GROUP BY farmacos.id,far";
+        $interac =DB::select($sql5);
        
 
-        return view("reportes",compact('biblios','farma_grupo','farma_biblio'));
+        return view("reportes",compact('farma_biblio','farma_grupo','grupos','biblios','interac'));
     }
 }

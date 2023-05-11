@@ -57,12 +57,12 @@ $(document).ready(function () {
     const id_grupo = $(this).data('id_grupo');
     const grupo = $(this).data('grupo');
     const subgrupo = $(this).data('subgrupo');
-    console.log(grupo);
-    console.log(subgrupo);
-    console.log("log");
+    // console.log(grupo);
+    // console.log(subgrupo);
+    // console.log("log");
 
     $('#grupo_id').val(id_grupo);
-    $('#grupoU').val(grupo);
+    $('#grupoUP').val(grupo);
     $('#subgrupoU').val(subgrupo);
   })
 })
@@ -203,9 +203,16 @@ $(document).ready(function () {
   });
 });
 /*Tabla reporte 1*/
-$(document).ready(function () {
+/*$(document).ready(function () {
   $('#reporte_1').DataTable({
       scrollY: '200px',
+      scrollCollapse: true,
+      paging: false,
+  });
+});*/
+$(document).ready(function () {
+  $('#reporte_1').DataTable({
+      scrollY: '50vh',
       scrollCollapse: true,
       paging: false,
   });
@@ -213,7 +220,7 @@ $(document).ready(function () {
 /*Tabla reporte 2*/
 $(document).ready(function () {
   $('#reporte_2').DataTable({
-      scrollY: '200px',
+      scrollY: '50vh',
       scrollCollapse: true,
       paging: false,
   });

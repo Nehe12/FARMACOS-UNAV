@@ -1,26 +1,55 @@
-var sampleChartClass;
+var barChartClass;
+var interChartClass;
+var grupChartClass;
 (function ($) {
     $(document).ready(function () {
-         var labels = [];
-         var data = [];
-         var datos = farmaM;
-         console.log(datos);
-         for (let i = 0; i < datos.length; i++) {
-             var item = datos[i];
-             labels.push(item.far);
-             data.push(item.CAN) ;           
-         }
-       
-         console.log("Nombre: "+labels+" Cantidad: "+data);
+        /*-------------CANTIDAD DE BIBLIOGRAFIAS POR FARMACO */
+        var labels = [];
+        var data = [];
+        var datos = farmaM;
+        // console.log(datos);
+        for (let i = 0; i < datos.length; i++) {
+            var item = datos[i];
+            labels.push(item.far);
+            data.push(item.CAN);
+        }
+        //  console.log("Nombre: "+labels+" Cantidad: "+data);
+        const barChart = document.getElementById('myChartbar');
+        barChartClass.ChartData(barChart, 'bar', labels, data);
+        /*--------------------CANTIDAD DE INTERACCIONES POR FARMACO --------------------- */
+        const inter = interM;
+        var intLabels = [];
+        var intData = [];
+        console.log(inter);
+        for (let i = 0; i < inter.length; i++) {
+            var itemIn = inter[i];
+            intLabels.push(itemIn.far);
+            intData.push(itemIn.int_can)
+        }
+        // console.log("Nombre: " + intLabels + " Cantidad: " + intData);
+        const lineChart = document.getElementById('myChartline');
+        interChartClass.ChartData(lineChart, 'line', intLabels, intData);
 
-        const barChart = document.getElementById('myChart');
-        sampleChartClass.ChartData(barChart, 'bar',labels,data);
-        const pieChart = document.getElementById('myChart2');
-        sampleChartClass.ChartData(pieChart, 'line',labels,data);
+        /*---------------- CANTIDAD DE GRUPOS POR FARMACOS ----------------- */
+
+        const grupo = grupoM;
+        var grupLabels = [];
+        var grupData = [];
+        for (let i = 0; i < grupo.length; i++) {
+            const itemG = grupo[i];
+            grupLabels.push(itemG.grupo);
+            grupData.push(itemG.cant_farm);
+
+        }
+        //  console.log("Nombre: " + grupLabels + " Cantidad: " + grupData);
+        const pieChart = document.getElementById('myChartPie').getContext('2d');
+        grupChartClass.ChartData(pieChart, 'pie', grupLabels, grupData)
+
     });
 
-    sampleChartClass = {
-        ChartData: function (ctx, type, labels, data,item) {
+
+    barChartClass = {
+        ChartData: function (ctx, type, labels, data, item) {
             new Chart(ctx, {
                 type: type,
                 data: {
@@ -35,7 +64,76 @@ var sampleChartClass;
                             'rgb(201, 203, 207)',
                             'rgb(54, 162, 235)'
                         ],
-                        data:data
+                        data: data
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    }
+    interChartClass = {
+        ChartData: function (ctx, type, labels, data, item) {
+            new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+
+                    datasets: [{
+                        label: item,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(75, 192, 192)',
+                            'rgb(255, 205, 86)',
+                            'rgb(201, 203, 207)',
+                            'rgb(54, 162, 235)'
+                        ],
+                        data: data
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    }
+    grupChartClass = {
+        ChartData: function (ctx, type, labels, data, item) {
+            new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+
+                    datasets: [{
+                        label: labels,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        data: data
                     }]
                 },
                 options: {

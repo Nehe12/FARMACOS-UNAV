@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row">
-     <div class="col"> <!--Farmaco con biliografias-->
+    <div class="col"> <!--Farmaco con biliografias-->
         <table id="reporte_1" class="display" style="width:100%">
             <thead>
                 <tr>
@@ -68,28 +68,49 @@
     </div>
 
 </div>
-<div class="row pt-3">
-    <div class="col">
+<div class="pt-3">
+    <div class="row">
         <div class="col">
             <div class="card w-70">
                 <div class="card-body">
-                    <canvas id="myChart"></canvas>
+                    <h4 class="card-title"><b>Bibliografias por fármacos</b></h4>
+                    <canvas id="myChartbar"></canvas>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col">
         <div class="col">
             <div class="card w-70">
                 <div class="card-body">
-                    <canvas id="myChart2"></canvas>
+                    <h4 class="card-title"><b>Interacciones por fármacos</b></h4>
+                    <canvas id="myChartline"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row pt-4">
+    <div class="col">
+        <div class="card w-70">
+            <div class="card-body">
+                <h4 class="card-title"><b>Fármacos por grupo</b></h4>
+                <canvas id="myChartPie"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
 <script>
+    //Bibliografias por farmacos
     const farmaM = @JSON($biblios);
     console.log(farmaM);
+    //Interacciones por farmacos
+    const interM = @JSON($interac);
+    console.log(interM);
+    //Fármacos por grupo
+    const grupoM = @JSON($grupos);
+    console.log(grupoM);
 </script>
 @endsection
