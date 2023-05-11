@@ -59,6 +59,7 @@ $(document).ready(function () {
     const subgrupo = $(this).data('subgrupo');
     console.log(grupo);
     console.log(subgrupo);
+    console.log("log");
 
     $('#grupo_id').val(id_grupo);
     $('#grupoU').val(grupo);

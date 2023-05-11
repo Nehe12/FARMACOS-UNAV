@@ -2,37 +2,31 @@
 @section('content')
 
 <div class="row">
-    <div class="col">
+     <div class="col"> <!--Farmaco con biliografias-->
         <table id="reporte_1" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>ID</th>
+                    <th>FÁRMACO</th>
+                    <th>BIBLIOGRAFIAS</th>
                 </tr>
             </thead>
             <tbody>
+                @if(isset($farma_biblio))
+                @foreach($farma_biblio as $itemB)
                 <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011-04-25</td>
-                    <td>$320,800</td>
+                    <td>{{$itemB->far}}</td>
+                    <td>{{$itemB->farmaco}}</td>
+                    <td>{{$itemB->titulos}}</td>
                 </tr>
-
+                @endforeach
+                @endif
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>ID</th>
+                    <th>FÁRMACO</th>
+                    <th>BIBLIOGRAFIAS</th>
                 </tr>
             </tfoot>
         </table>
@@ -94,4 +88,8 @@
         </div>
     </div>
 </div>
+<script>
+    const farmaM = @JSON($biblios);
+    console.log(farmaM);
+</script>
 @endsection

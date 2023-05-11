@@ -110,7 +110,7 @@
                 <form action="{{route('update.grupo')}}" method="post">
                     @csrf
                     @METHOD('PUT')
-                    <input type="text" id="grupo_id" name="grupo_id" hidden>
+                    <input type="text" id="grupo_id" name="grupo_id" >
                     <div class="">
                         <label for="grupoU" class="form-label">Grupo</label>
                         <textarea class="form-control" name="grupoU" id="grupoU" cols="4" rows="2"></textarea>

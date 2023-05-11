@@ -1,22 +1,22 @@
 var sampleChartClass;
 (function ($) {
     $(document).ready(function () {
-        // var labels = [];
-        // var data = [];
-        // var datos = farmaM;
-        // console.log(datos);
-        // for (let i = 0; i < datos.length; i++) {
-        //     var item = datos[i];
-        //     labels.push(item.far);
-        //     data.push(item.CAN) ;           
-        // }
+         var labels = [];
+         var data = [];
+         var datos = farmaM;
+         console.log(datos);
+         for (let i = 0; i < datos.length; i++) {
+             var item = datos[i];
+             labels.push(item.far);
+             data.push(item.CAN) ;           
+         }
        
-        // console.log("Nombre: "+labels+" Cantidad: "+data);
+         console.log("Nombre: "+labels+" Cantidad: "+data);
 
         const barChart = document.getElementById('myChart');
-        sampleChartClass.ChartData(barChart, 'bar');
+        sampleChartClass.ChartData(barChart, 'bar',labels,data);
         const pieChart = document.getElementById('myChart2');
-        sampleChartClass.ChartData(pieChart, 'pie');
+        sampleChartClass.ChartData(pieChart, 'line',labels,data);
     });
 
     sampleChartClass = {
@@ -24,7 +24,7 @@ var sampleChartClass;
             new Chart(ctx, {
                 type: type,
                 data: {
-                    labels: ['labels','labels','labels','labels'],
+                    labels: labels,
 
                     datasets: [{
                         label: item,
@@ -35,7 +35,7 @@ var sampleChartClass;
                             'rgb(201, 203, 207)',
                             'rgb(54, 162, 235)'
                         ],
-                        data: [8,9,6,5]
+                        data:data
                     }]
                 },
                 options: {

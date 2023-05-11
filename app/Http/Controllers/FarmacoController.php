@@ -249,8 +249,14 @@ class FarmacoController extends Controller
     }
     public function reporte()
     {
-        /*Cantidad de bibliografias por farmaco */
-
+        /*Cantidad de bibliografias por farmaco tabla */
+        $sqlB = "SELECT farmacos.id AS far, farmacos.farmaco, GROUP_CONCAT(bibliografias.titulo SEPARATOR ' -||\n ') AS titulos
+        FROM farmacos
+        LEFT JOIN farmacobibliografia ON farmacobibliografia.farmacos_id = farmacos.id
+        LEFT JOIN bibliografias ON farmacobibliografia.bibliografias_id= bibliografias.id
+        GROUP BY far, farmacos.farmaco";
+        $farma_biblio = DB::select($sqlB);
+        // dd($farma_biblio);
         /*Cantidad de Interacciones del farmaco */
         $sql = "SELECT farmacos.id AS far, farmacos.farmaco,farmacos.efecto,farmacos.mecanismo,grupo_farmacos.grupo, GROUP_CONCAT(interacciones.interaccion SEPARATOR ' -|| \n ') AS interaccion
         FROM farmacos
@@ -261,6 +267,15 @@ class FarmacoController extends Controller
         
         /*Cantidad de farmacos por grupo */
 
-        return view("reportes",compact('farma_grupo'));
+        /* #biliografias por farmaco Grafica*/
+        $sql3="SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(bibliografias.id) AS CAN 
+        FROM `farmacos`
+        LEFT JOIN `farmacobibliografia` ON `farmacos`.`id` = `farmacobibliografia`.`farmacos_id` 
+        LEFT JOIN `bibliografias` ON `farmacobibliografia`.`bibliografias_id` = `bibliografias`.`id`
+        GROUP BY farmacos.id,far";
+        $biblios=DB::select($sql3);
+       
+
+        return view("reportes",compact('biblios','farma_grupo','farma_biblio'));
     }
 }
