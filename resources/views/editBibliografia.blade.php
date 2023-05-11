@@ -1,5 +1,6 @@
 @extends('header')
 @section('content')
+<a class="btn btn-primary btnc" href="{{ route('crear.farmaco') }}">CREAR NUEVO FÁRMACO</a>
 
 <div class="card">
     <div class="card-header">

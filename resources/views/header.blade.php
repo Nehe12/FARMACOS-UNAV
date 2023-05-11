@@ -51,6 +51,9 @@
       <li class="nav-item pe-3">
         <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">GRUPOS</span></a>
       </li>
+      <li class="nav-item pe-3">
+        <a class="nav-link navbar-brand" href="{{route('show.reporte')}}"><span class="navbar">REPORTES</span></a>
+      </li>
 
 
     </ul>
@@ -88,6 +91,7 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>"></script> -->
   <!-- <script src="/js/dataTables.js"></script> -->
   <script src="{{ asset('js/script.js') }}"></script>
+  <script src="{{ asset('js/graaficas.js') }}"></script>
 
 
   <!-- <script src="js/script.js"></script> -->
