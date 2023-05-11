@@ -44,6 +44,22 @@ class GrupoFarmacoController extends Controller
         return redirect('/farmaco');
     }
 
+    public function store2(Request $request)
+    {
+        
+        
+        $grupo =new GrupoFarmaco();
+        $grupo->grupo=$request->grupo;
+        $grupo->subgrupo=$request->subgrupo;
+        if (isset($request->estatus)) {
+            $grupo->estatus=$request->input('estatus');
+           }else {
+               $grupo->estatus=0;
+           }
+        $grupo->save();
+        return redirect('/editGrupo');
+    }
+
     /**
      * Display the specified resource.
      */

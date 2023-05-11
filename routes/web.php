@@ -48,6 +48,7 @@ Route::controller(GrupoFarmacoController::class)->group(function () {
     Route::get('/grupo', 'create')->name('create.grupo');
     Route::get('/editGrupo','index')->name('show.grupos');
     Route::post('/grupo/saveGroup', 'store')->name('store.grupo');
+    Route::post('/savegrupo', 'store2')->name('store2.grupo');
     Route::put('/updateG','update')->name('update.grupo');
     Route::delete('/destroyG/{id}','destroy')->name('destroy.grupo');
 });

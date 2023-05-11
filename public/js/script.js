@@ -57,6 +57,8 @@ $(document).ready(function () {
     const id_grupo = $(this).data('id_grupo');
     const grupo = $(this).data('grupo');
     const subgrupo = $(this).data('subgrupo');
+    console.log(grupo);
+    console.log(subgrupo);
 
     $('#grupo_id').val(id_grupo);
     $('#grupoU').val(grupo);
@@ -199,9 +201,17 @@ $(document).ready(function () {
     "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
   });
 });
-/*Tabla reporte */
+/*Tabla reporte 1*/
 $(document).ready(function () {
-  $('#example').DataTable({
+  $('#reporte_1').DataTable({
+      scrollY: '200px',
+      scrollCollapse: true,
+      paging: false,
+  });
+});
+/*Tabla reporte 2*/
+$(document).ready(function () {
+  $('#reporte_2').DataTable({
       scrollY: '200px',
       scrollCollapse: true,
       paging: false,

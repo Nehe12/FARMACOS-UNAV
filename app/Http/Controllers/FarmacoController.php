@@ -63,7 +63,7 @@ class FarmacoController extends Controller
         $farmaco->url = $url;
         $farmaco->efecto = $request->efecto;
         $id_bibliografia = $request->bibliografia;
-        $farmaco->recomendaciones=$request->recomendacion;
+        $farmaco->recomendaciones = $request->recomendacion;
 
         $farmaco->id_grupo = $request->grupo;
         // if (isset($request->estatus)) {
@@ -84,7 +84,7 @@ class FarmacoController extends Controller
         $id = $itemfarmaco;
         return redirect()->route('edit.farmaco', compact('id', 'itemfarmaco', 'bibliografia'))->with('success', 'Agregado con exito!!');
     }
-   
+
 
     /**
      * Display the specified resource.
@@ -154,7 +154,7 @@ class FarmacoController extends Controller
         // $farmaco->public_id = '$public_id';
         $farmaco->url = $url;
         $farmaco->efecto = $request->efecto;
-        $farmaco->recomendaciones=$request->recomendacion;
+        $farmaco->recomendaciones = $request->recomendacion;
         $id_bibliografia = $request->bibliografia;
         $farmaco->id_grupo = $request->grupo;
         // if (isset($request->estatus)) {
@@ -217,10 +217,10 @@ class FarmacoController extends Controller
         // dd($request->input('estatus'));
         if ($request->input('estatus') == 1) {
             $nuevoEstatus = $request->input('estatus') == 'checked' ? 1 : 0;
-        }else{
+        } else {
             $nuevoEstatus = $request->input('estatus') == 'checked' ? 0 : 1;
         }
-        
+
         $farmaco->estatus = $nuevoEstatus;
         $farmaco->save();
 
@@ -247,7 +247,20 @@ class FarmacoController extends Controller
         $farmaco->delete();
         return redirect()->route('inicio')->with('success', 'Eliminado con exito!!');
     }
-    public function reporte(){
-        return view("reportes");
+    public function reporte()
+    {
+        /*Cantidad de bibliografias por farmaco */
+
+        /*Cantidad de Interacciones del farmaco */
+        $sql = "SELECT farmacos.id AS far, farmacos.farmaco,farmacos.efecto,farmacos.mecanismo,grupo_farmacos.grupo, GROUP_CONCAT(interacciones.interaccion SEPARATOR ' -|| \n ') AS interaccion
+        FROM farmacos
+        LEFT JOIN interacciones ON farmacos.id = interacciones.id_farmaco
+        LEFT JOIN grupo_farmacos ON farmacos.id_grupo = grupo_farmacos.id
+        GROUP BY far, farmacos.farmaco,grupo_farmacos.grupo,farmacos.efecto,farmacos.mecanismo";
+        $farma_grupo=DB::select($sql);
+        
+        /*Cantidad de farmacos por grupo */
+
+        return view("reportes",compact('farma_grupo'));
     }
 }
