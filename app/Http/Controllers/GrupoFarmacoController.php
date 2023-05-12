@@ -116,7 +116,7 @@ class GrupoFarmacoController extends Controller
             return redirect()->route('show.grupos')->with('msg', 'No se puede eliminar porque pertenece a u farmaco');
         } else {
             $grupo->delete();
-            return redirect()->route('show.grupos');
+            return redirect()->route('show.grupos')->with('msgDelete', 'Grupo eliminado');
         }
     }
 }

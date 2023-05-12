@@ -10,7 +10,29 @@
 
     </div>
 </div> -->
+
 <div class="pt-3">
+    <div class="col-sm-12 ">
+        @if($mensaje = Session::get('msg'))
+        <div id="mensaje" class="alert alert-warning" role="alert">
+            <script>
+                setTimeout(function() {
+                    document.getElementById('mensaje')
+                }, 4000)
+            </script>
+            {{$mensaje}}
+        </div>
+        @endif
+    </div>
+    <div id="mensaje" class="col-sm-12 ">
+        @if($mensaje = Session::get('msgDelete'))
+        <div class="alert alert-success" role="alert">
+            <script></script>
+            {{$mensaje}}
+        </div>
+        @endif
+    </div>
+
     <table id="tabla_grupo" class="table table-striped responsive" style="width:100%" style="white-space: nowrap; overflow-x: auto;">
         <thead>
             <tr>

@@ -95,6 +95,7 @@
   <!-- <script src="/js/dataTables.js"></script> -->
   <script src="{{ asset('js/script.js') }}"></script>
   <script src="{{ asset('js/graficas.js') }}"></script>
+  <script src="{{ asset('js/timeOut.js') }}"></script>
 
 
   <!-- <script src="js/script.js"></script> -->
