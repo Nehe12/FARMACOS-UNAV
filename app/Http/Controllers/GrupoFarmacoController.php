@@ -7,6 +7,7 @@ use App\Models\GrupoFarmaco;
 use Database\Factories\GrupoFarmacoFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 
 class GrupoFarmacoController extends Controller
@@ -99,19 +100,20 @@ class GrupoFarmacoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $grupo = GrupoFarmaco::findOrFail($id);
-        // dd($grupo);
-        // $farmacos = Farmacos::findOrFail($grupo->id);
-        // dd($farmacos);
-        // dd($farmacos);
-       /* $sql = "SELECT exists(select * from `farmacos`
+
+        $sql = "SELECT exists(select * from `farmacos`
          where `farmacos`.`id_grupo` = $grupo->id 
          and `farmacos`.`id_grupo` is not null) as `exists`";
         $farmaco = DB::select($sql);
-        dd($farmaco);*/
-        if ($grupo->farmacos()->exists()) {
+        // $activo= array_get($farmaco);
+        foreach ($farmaco as $farm) {
+            $activo = $farm->exists;
+        }
+        if ($activo == 1) {
+            return redirect()->route('show.grupos')->with('msg', 'No se puede eliminar porque pertenece a u farmaco');
         } else {
             $grupo->delete();
             return redirect()->route('show.grupos');

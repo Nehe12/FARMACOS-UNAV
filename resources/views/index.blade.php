@@ -37,6 +37,7 @@
                         <!-- <th>BIBLIOGRAFIA</th> -->
                         <th>GRUPO</th>
                         <th>RECOMENDACIÓN</th>
+                        <th>ESTADO</th>
                         <th>ACCIÓN</th>
                         <th>EDITAR</th>
                         <th>ELIMINAR</th>
@@ -106,6 +107,7 @@
                         <!-- <th>BIBLIOGRAFIA</th> -->
                         <th>GRUPO</th>
                         <th>RECOMENDACIÓN</th>
+                        <th>ESTADO</th>
                         <th>ACCIÓN</th>
                         <th>EDITAR</th>
                         <th>ELIMINAR</th>

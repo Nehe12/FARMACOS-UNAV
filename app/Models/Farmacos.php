@@ -18,14 +18,14 @@ class Farmacos extends Model
     public function grupos(){
         return $this->belongsTo(GrupoFarmaco::class);
     }
-    protected $fillable = [
-        'id',
-        'farmaco',
-        'mecasnimo',
-        'url',
-        'efecto',
-        'id_grupo'
-    ];
+    // protected $fillable = [
+    //     'id',
+    //     'farmaco',
+    //     'mecasnimo',
+    //     'url',
+    //     'efecto',
+    //     'id_grupo'
+    // ];
     
 }
 /*hasOne          > 1:1       > Tiene Uno
