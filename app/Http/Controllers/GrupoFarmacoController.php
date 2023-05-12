@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Farmacos;
 use App\Models\GrupoFarmaco;
 use Database\Factories\GrupoFarmacoFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class GrupoFarmacoController extends Controller
@@ -14,7 +17,7 @@ class GrupoFarmacoController extends Controller
     public function index()
     {
         $grupos = GrupoFarmaco::all();
-        return view('editGrupo',compact('grupos'));
+        return view('editGrupo', compact('grupos'));
     }
 
     /**
@@ -30,32 +33,32 @@ class GrupoFarmacoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        $grupo =new GrupoFarmaco();
-        $grupo->grupo=$request->grupo;
-        $grupo->subgrupo=$request->subgrupo;
+
+
+        $grupo = new GrupoFarmaco();
+        $grupo->grupo = $request->grupo;
+        $grupo->subgrupo = $request->subgrupo;
         if (isset($request->estatus)) {
-            $grupo->estatus=$request->input('estatus');
-           }else {
-               $grupo->estatus=0;
-           }
+            $grupo->estatus = $request->input('estatus');
+        } else {
+            $grupo->estatus = 0;
+        }
         $grupo->save();
         return redirect('/farmaco');
     }
 
     public function store2(Request $request)
     {
-        
-        
-        $grupo =new GrupoFarmaco();
-        $grupo->grupo=$request->grupo;
-        $grupo->subgrupo=$request->subgrupo;
+
+
+        $grupo = new GrupoFarmaco();
+        $grupo->grupo = $request->grupo;
+        $grupo->subgrupo = $request->subgrupo;
         if (isset($request->estatus)) {
-            $grupo->estatus=$request->input('estatus');
-           }else {
-               $grupo->estatus=0;
-           }
+            $grupo->estatus = $request->input('estatus');
+        } else {
+            $grupo->estatus = 0;
+        }
         $grupo->save();
         return redirect('/editGrupo');
     }
@@ -81,14 +84,14 @@ class GrupoFarmacoController extends Controller
      */
     public function update(Request $request)
     {
-        $grupo =GrupoFarmaco::find($request->grupo_id);
-        $grupo->grupo=$request->grupoU;
-        $grupo->subgrupo=$request->subgrupoU;
+        $grupo = GrupoFarmaco::find($request->grupo_id);
+        $grupo->grupo = $request->grupoUP;
+        $grupo->subgrupo = $request->subgrupoU;
         if (isset($request->estatus)) {
-            $grupo->estatus=$request->input('estatus');
-           }else {
-               $grupo->estatus=0;
-           }
+            $grupo->estatus = $request->input('estatus');
+        } else {
+            $grupo->estatus = 0;
+        }
         $grupo->save();
         return redirect()->route('show.grupos');
     }
@@ -98,8 +101,20 @@ class GrupoFarmacoController extends Controller
      */
     public function destroy(string $id)
     {
-        $grupo = GrupoFarmaco::find($id);
-        $grupo->delete();
-        return redirect()->route('show.grupos');
+        $grupo = GrupoFarmaco::findOrFail($id);
+        // dd($grupo);
+        // $farmacos = Farmacos::findOrFail($grupo->id);
+        // dd($farmacos);
+        // dd($farmacos);
+       /* $sql = "SELECT exists(select * from `farmacos`
+         where `farmacos`.`id_grupo` = $grupo->id 
+         and `farmacos`.`id_grupo` is not null) as `exists`";
+        $farmaco = DB::select($sql);
+        dd($farmaco);*/
+        if ($grupo->farmacos()->exists()) {
+        } else {
+            $grupo->delete();
+            return redirect()->route('show.grupos');
+        }
     }
 }
