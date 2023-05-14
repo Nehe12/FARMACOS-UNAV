@@ -42,6 +42,9 @@
   <nav class="fixed-top bg-dark navbar-dark p-3  ">
 
     <ul class="nav justify-content-center">
+      @guest
+      <a class="navbar-brand justify-content-end" aria-current="page" href="{{route('login')}}"><span class="navbar">ESCUELA DE NUTRICIÓN UNIVERSIDAD DE NAVOJOA A.C.</span></a>
+      @else
       <li class="nav-item pe-3">
         <a class="nav-link navbar-brand" aria-current="page" href="{{route('inicio')}}"><span class="navbar">INICIO</span></a>
       </li>
@@ -56,13 +59,11 @@
       </li>
       <li class="nav-item pe3">
         <form action="{{route('logout')}}" method="post">
-          @csrf 
-          <a class="nav-link navbar-brand" 
-          onclick="this.closest('form').submit()" 
-          href="#"> <span class="navbar"> CERRAR SESIÓN</span></a>
+          @csrf
+          <a class="nav-link navbar-brand" onclick="this.closest('form').submit()" href="#"> <span class="navbar"> CERRAR SESIÓN</span></a>
         </form>
       </li>
-
+      @endguest
 
     </ul>
 

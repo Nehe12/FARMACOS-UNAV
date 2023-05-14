@@ -43,6 +43,10 @@ class FarmacoController extends Controller
     public function logout()
     {
         Auth::logout();
+        //invalidar sesion
+        request()->session()->invalidate();
+        //invalidar token
+        request()->session()->regenerateToken();
 
         return redirect()->route('login');
     }
