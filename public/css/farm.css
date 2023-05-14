@@ -113,9 +113,13 @@ form {
     max-width: 100rem;
 }
 
-.image {
-    display: block;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+.bg {
+    background-image: url(../img/logoNutri.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 2rem 2rem;
+}
+
+.ancho {
+    padding: 5rem 5rem;
 }
