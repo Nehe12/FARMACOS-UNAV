@@ -9,17 +9,43 @@ use App\Models\Interacciones;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Google\Service\Storage as ServiceStorage;
 //  use Google\Service\Storage;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Filesystem;
-
-
+use Dotenv\Exception\ValidationException;
 
 class FarmacoController extends Controller
 {
+    public function login()
+    {
+        return view('login');
+    }
+    public function iniciar()
+    {
+        $credenciales =  request()->validate([
+            'password' => ['required', 'string'],
+            'email' => ['required', 'email', 'string']
+        ]);
+        $remember = request()->filled('remember');
+        // dd(request()->filled('remember'));
+        // dd($credenciales);
+        if (Auth::attempt($credenciales, $remember)) {
+            request()->session()->regenerate();
+            return redirect()->route('inicio');
+        }
+        // throw ValidationException->withErrors({});
+        return redirect()->route('login')->with('alert', 'Login fallo');
+    }
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('login');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -263,31 +289,31 @@ class FarmacoController extends Controller
         LEFT JOIN interacciones ON farmacos.id = interacciones.id_farmaco
         LEFT JOIN grupo_farmacos ON farmacos.id_grupo = grupo_farmacos.id
         GROUP BY far, farmacos.farmaco,grupo_farmacos.grupo,farmacos.efecto,farmacos.mecanismo";
-        $farma_grupo=DB::select($sql2);
-        
+        $farma_grupo = DB::select($sql2);
+
         /*<-<--<-<-<-<--<-<--Cantidad de farmacos por grupo >-->->-->->->-->->-->->->-->->->-->->->*/
         $sql3 = "SELECT grupo_farmacos.id, grupo_farmacos.grupo as grupo, COUNT(farmacos.id) as cant_farm
         FROM grupo_farmacos
         LEFT JOIN farmacos ON farmacos.id_grupo = grupo_farmacos.id
         GROUP BY grupo_farmacos.id,grupo";
-        $grupos=DB::select($sql3);
+        $grupos = DB::select($sql3);
         // dd($grupos);
         /*<-<-<--<-<--<-<-<--< #biliografias por farmaco Grafica >->->->->-->->->->*/
-        $sql4="SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(bibliografias.id) AS CAN 
+        $sql4 = "SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(bibliografias.id) AS CAN 
         FROM `farmacos`
         LEFT JOIN `farmacobibliografia` ON `farmacos`.`id` = `farmacobibliografia`.`farmacos_id` 
         LEFT JOIN `bibliografias` ON `farmacobibliografia`.`bibliografias_id` = `bibliografias`.`id`
         GROUP BY farmacos.id,far";
-        $biblios=DB::select($sql4);
-       
+        $biblios = DB::select($sql4);
+
         /*<-<-<-<-<--<-<-< Cantidad de interacciones por farmaco >-->->->->-->->-->-*/
         $sql5 = "SELECT `farmacos`.`id`, `farmacos`.`farmaco` AS far, COUNT(interacciones.id) AS int_can
         from `farmacos`
         LEFT JOIN interacciones ON interacciones.id_farmaco = farmacos.id
         GROUP BY farmacos.id,far";
-        $interac =DB::select($sql5);
-       
+        $interac = DB::select($sql5);
 
-        return view("reportes",compact('farma_biblio','farma_grupo','grupos','biblios','interac'));
+
+        return view("reportes", compact('farma_biblio', 'farma_grupo', 'grupos', 'biblios', 'interac'));
     }
 }

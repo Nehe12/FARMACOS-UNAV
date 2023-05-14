@@ -43,7 +43,7 @@
 
     <ul class="nav justify-content-center">
       <li class="nav-item pe-3">
-        <a class="nav-link navbar-brand" aria-current="page" href="/"><span class="navbar">INICIO</span></a>
+        <a class="nav-link navbar-brand" aria-current="page" href="{{route('inicio')}}"><span class="navbar">INICIO</span></a>
       </li>
       <li class="nav-item pe-3">
         <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFÍAS</span></a>
@@ -53,6 +53,14 @@
       </li>
       <li class="nav-item pe-3">
         <a class="nav-link navbar-brand" href="{{route('show.reporte')}}"><span class="navbar">REPORTES</span></a>
+      </li>
+      <li class="nav-item pe3">
+        <form action="{{route('logout')}}" method="post">
+          @csrf 
+          <a class="nav-link navbar-brand" 
+          onclick="this.closest('form').submit()" 
+          href="#"> <span class="navbar"> CERRAR SESIÓN</span></a>
+        </form>
       </li>
 
 
@@ -88,7 +96,7 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-  
+
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>"></script> -->
   <!-- CHART JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

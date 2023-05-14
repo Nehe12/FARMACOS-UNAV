@@ -50,7 +50,7 @@ use Illuminate\Support\Str;
           <div class="col">
             <div class="col-md-12">
               <label for="farmaco" class="form-label">Fármaco </label>
-              <input type="text" class="form-control is-valid" name="farmaco" required>
+              <input type="text" class="form-control is-valid" name="farmaco" value="{{old('farmaco')}}" required>
               <div class="valid-feedback">
               </div>
             </div><!-- -->
