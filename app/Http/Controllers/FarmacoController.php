@@ -6,11 +6,12 @@ use App\Models\Bibliografias;
 use App\Models\GrupoFarmaco;
 use App\Models\Farmacos;
 use App\Models\Interacciones;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Google\Service\Storage as ServiceStorage;
 //  use Google\Service\Storage;
@@ -28,12 +29,12 @@ class FarmacoController extends Controller
     {
         $credenciales =  request()->validate([
             'password' => ['required', 'string'],
-            'email' => ['required', 'email', 'string']
+            'name' => ['required','string']
         ]);
-        $remember = request()->filled('remember');
+         $remember = request()->filled('remember');
         // dd(request()->filled('remember'));
         // dd($credenciales);
-        if (Auth::attempt($credenciales, $remember)) {
+        if (Auth::attempt($credenciales,$remember)) {
             request()->session()->regenerate();
             return redirect()->route('inicio');
         }
@@ -84,23 +85,16 @@ class FarmacoController extends Controller
         $farmaco = new Farmacos();
         $path = Storage::disk('google')->put('farmacos_img', $request->file('image'));
         $url = Storage::disk('google')->url($path);
-        // $image = $request->file('image');
-        // $path  = $image->store('farmacoImg','google');
-        // $url = Storage::disk('google')->url($path);
+       
         $farmaco->farmaco = $request->farmaco;
         $farmaco->mecanismo = $request->mecanismo;
-        // $farmaco->public_id = '$public_id';
         $farmaco->url = $url;
         $farmaco->efecto = $request->efecto;
         $id_bibliografia = $request->bibliografia;
         $farmaco->recomendaciones = $request->recomendacion;
 
         $farmaco->id_grupo = $request->grupo;
-        // if (isset($request->estatus)) {
-        //     $farmaco->status = $request->input('estatus');
-        // } else {
-        //     $farmaco->status = 0;
-        // }
+       
         $farmaco->save();
         $farmaco->bibliografias()->attach($id_bibliografia);
 
@@ -319,5 +313,27 @@ class FarmacoController extends Controller
 
 
         return view("reportes", compact('farma_biblio', 'farma_grupo', 'grupos', 'biblios', 'interac'));
+    }
+
+    public function createUser(Request $request){
+        
+        return view('crearUsuario');
+    }
+    public function saveUser(Request $request){
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $email = $request->email;
+        if (preg_match('/^([a-zA-Z0-9\.]+)@/', $email, $matches)) {
+            $username = $matches[1]; 
+            $password = $username;
+        } else {
+            echo 'Formato de correo electrónico no válido.';
+        }
+        $passwordHash = Hash::Make($password);
+        // dd($passwordHash);
+        $usuario->email = $email;
+        $usuario->password = $passwordHash;
+        $usuario->save();
+        return redirect()->route('crear.usuario')->with('success', 'Creado con éxito!!');
     }
 }

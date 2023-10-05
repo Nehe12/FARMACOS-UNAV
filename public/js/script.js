@@ -192,14 +192,14 @@ $(document).ready(function () {
 /*Tabla Bibliografias */
 $(document).ready(function () {
   $('#tabla_biblios').DataTable({
-    "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+    "lengthMenu": [[50, 80, 90, 200, -1], [50, 80, 90, 200, "All"]]
   });
 });
 
 /*Tabla Bibliografias */
 $(document).ready(function () {
   $('#tabla_grupo').DataTable({
-    "lengthMenu": [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+    "lengthMenu": [[50, 80, 90, 200, -1], [50, 80, 90, 200, "All"]]
   });
 });
 /*Tabla reporte 1*/

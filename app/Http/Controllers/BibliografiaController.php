@@ -106,7 +106,16 @@ class BibliografiaController extends Controller
     public function destroy($id)
     {
         $bibliografia = Bibliografias::find($id);
+        // Verifica si la bibliografía está relacionada con algún fármaco
+        if ($bibliografia->farmacos()->count() > 0) {
+            return redirect()->route('show.biblios')->with('msg', 'No se puede eliminar porque está relacionada con al menos un fármaco');
+        }
+
+        // Si no está relacionada con ningún fármaco, puedes eliminarla
         $bibliografia->delete();
-        return redirect()->route('show.biblios');
+
+        return redirect()->route('show.biblios')->with('msgDelete', 'Bibliografía eliminada');
+        /*$bibliografia->delete();
+        return redirect()->route('show.biblios');*/
     }
 }

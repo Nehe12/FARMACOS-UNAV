@@ -84,7 +84,7 @@
 
 <!-- Modal Grupo -->
 <div class="modal fade" id="grupoU" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">CREAR GRUPO</h1>
@@ -122,7 +122,7 @@
 </div>
 <!-- Actualizar Modal Grupo -->
 <div class="modal fade" id="editGrupo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">ACTUALIZAR GRUPO</h1>

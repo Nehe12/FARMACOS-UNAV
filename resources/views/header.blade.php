@@ -46,21 +46,24 @@
       <a class="navbar-brand justify-content-end" aria-current="page" href="{{route('login')}}"><span class="navbar">ESCUELA DE NUTRICIÓN UNIVERSIDAD DE NAVOJOA A.C.</span></a>
       @else
       <li class="nav-item pe-3">
-        <a class="nav-link navbar-brand" aria-current="page" href="{{route('inicio')}}"><span class="navbar">INICIO</span></a>
+        <a class="nav-link navbar-brand" aria-current="page" href="{{route('inicio')}}"><span class="navbar">Inicio</span></a>
       </li>
       <li class="nav-item pe-3">
-        <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFÍAS</span></a>
+        <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">Bibliografias</span></a>
       </li>
       <li class="nav-item pe-3">
-        <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">GRUPOS</span></a>
+        <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">Grupos</span></a>
       </li>
       <li class="nav-item pe-3">
-        <a class="nav-link navbar-brand" href="{{route('show.reporte')}}"><span class="navbar">REPORTES</span></a>
+        <a class="nav-link navbar-brand" href="{{route('show.reporte')}}"><span class="navbar">Reportes</span></a>
+      </li>
+      <li class="nav-item pe-3">
+        <a class="nav-link navbar-brand" href="{{route('crear.usuario')}}"><span class="navbar">Crear Usuario</span></a>
       </li>
       <li class="nav-item pe3">
         <form action="{{route('logout')}}" method="post">
           @csrf
-          <a class="nav-link navbar-brand" onclick="this.closest('form').submit()" href="#"> <span class="navbar"> CERRAR SESIÓN</span></a>
+          <a class="nav-link navbar-brand" onclick="this.closest('form').submit()" href="#"> <span class="navbar"> Log out</span></a>
         </form>
       </li>
       @endguest
@@ -73,7 +76,31 @@
       <a class="navbar-brand jus " href="get_data">REPORTES</a> -->
     <!--  <a class="navbar-brand" href="#">NUTRICIÓN</a> -->
     <!-- <a class="navbar-brand" href="#">NUTRICIÓN</a>  -->
+    <!-- <ul class="nav justify-content-center">
+      
+      <li class="nav-item pe-3">
+        <a class="nav-link navbar-brand" aria-current="page" href="{{route('inicio')}}"><span class="navbar">INICIO</span></a>
+      </li>
+      <li class="nav-item pe-3">
+        <a class="nav-link navbar-brand" href="{{route('show.biblios')}}"><span class="navbar">BIBLIOGRAFÍAS</span></a>
+      </li>
+      <li class="nav-item pe-3">
+        <a class="nav-link navbar-brand" href="{{route('show.grupos')}}"><span class="navbar">GRUPOS</span></a>
+      </li>
+      
+     
 
+    </ul> -->
+
+
+
+    <!-- <a class="navbar-brand" href="/"><span class="navbar ">NUTRICIÓN INICIO</span></a>
+      <a class="navbar-brand jus " href="get_data">REPORTES</a> -->
+    <!--  <a class="navbar-brand" href="#">NUTRICIÓN</a> -->
+    <!-- <a class="navbar-brand" href="#">NUTRICIÓN</a>  -->
+
+
+  </nav>
 
   </nav>
   <div class="container p-5 ">
